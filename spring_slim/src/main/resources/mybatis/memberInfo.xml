@@ -20,14 +20,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </update>
 
 
-<update id="update" parameterType="MemberDTO">
+<update id="update" parameterType="MemberInfoDTO">
 	UPDATE memberInfo                                                     
 	SET mname	 	= #{mname}, 
 		call	 	= #{call}, 
 		email	    = #{email},
 		emailAgree  = #{emailAgree} 
 		zipcode		= #{zipcode}, 
-		address 	= #{address},
+		address1 	= #{address1},
+		address2 	= #{address2},
 		nickName 	= #{nickName}
 				
 	WHERE id = #{id}                                                       
@@ -55,12 +56,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	FROM memberInfo       
 	WHERE email=#{email} 
 </select>
-<insert id="create" parameterType="MemberDTO">
-	INSERT INTO memberInfo(id, passwd, mname, zipcode, address, nickName, call, email, emailagree, mdate)
-	VALUES(#{id}, #{passwd}, #{mname}, #{zipcode]}, #{address}, #{nickName}, #{call},
+<insert id="create" parameterType="MemberInfoDTO">
+	INSERT INTO memberInfo(id, passwd, mname, zipcode, address1, address2, nickName, call, email, emailagree, mdate)
+	VALUES(#{id}, #{passwd}, #{mname}, #{zipcode]}, #{address1}, #{address2} #{nickName}, #{call},
 	       #{email}, #{emailagree}, sysdate)          
 </insert>
-<select id="read" parameterType="String" resultType="MemberDTO">
+<select id="read" parameterType="String" resultType="MemberInfoDTO">
 	SELECT * FROM memberInfo
 	WHERE id = #{id}
 </select>
@@ -80,12 +81,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</choose>	
 	</where>
 </select>
-<select id="list" parameterType="Map" resultType="MemberDTO">
-	SELECT id, mname, call, email, address, nickName, r          
+<select id="list" parameterType="Map" resultType="MemberInfoDTO">
+	SELECT id, mname, call, email, address1, address2, nickName, r          
 	FROM(                                                               
-   		 SELECT id, mname, call, email, address, nickName, rownum r 
+   		 SELECT id, mname, call, email, address1, address2, nickName, rownum r 
     	 FROM(                                                          
-     		SELECT id, mname, call, email, address, nickName       
+     		SELECT id, mname, call, email, address1, address2, nickName       
      		FROM memberInfo
      		<where>
 			<choose>
