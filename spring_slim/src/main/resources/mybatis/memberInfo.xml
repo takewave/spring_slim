@@ -22,13 +22,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <update id="update" parameterType="MemberDTO">
 	UPDATE memberInfo                                                     
-	SET mname	 = #{mname}, 
-		call	 = #{call}, 
-		email	 = #{email},
-		emailAgree = #{emailAgree} 
-		zipcode	 = #{zipcode}, 
-		address = #{address},
-		nickName = #{nickName}
+	SET mname	 	= #{mname}, 
+		call	 	= #{call}, 
+		email	    = #{email},
+		emailAgree  = #{emailAgree} 
+		zipcode		= #{zipcode}, 
+		address 	= #{address},
+		nickName 	= #{nickName}
 				
 	WHERE id = #{id}                                                       
 </update>
