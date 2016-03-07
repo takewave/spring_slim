@@ -103,7 +103,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             ORDER BY id ASC  
           )   
     <![CDATA[                  
-<!--     )WHERE r >= #{sno} AND r <= #{eno} 	 -->
-<!--     ]]>	                                                  -->
+    )WHERE r >= #{sno} AND r <= #{eno} 	
+     ]]>	                                              
 </select>
 </mapper>
