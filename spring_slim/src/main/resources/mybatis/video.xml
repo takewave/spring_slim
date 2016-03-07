@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="video">
+
+  <select id="readvideo" parameterType="int" resultType="videoDTO">
+  	SELECT videoNo,passwd,vTitle,vFileName,vContent,vRegiDay,id,vType
+	FROM video                           
+	WHERE videoNo = #{videoNo}                    
+  </select>
+
+
+
+<insert id="create" parameterType="videoDTO">
+	<selectKey keyProperty="videoNo" resultType="int" order="BEFORE">
+	</selectKey>
+
+	insert into video(videoNo ,id , passwd ,vTitle ,vFileName ,vContent ,   
+vRegiDay , vType )
+	values(#{videoNo}, #{id}, #{passwd}, #{vTitle},#{vFileName},#{vContent},sysdate, #{vType}) 
+</insert>
+
+
+<select id="read" parameterType="int" resultType="videoDTO">
+select * from video
+where videoNo = #{videoNo}
+</select>
+
+
+
+<update id="update" parameterType="videoDTO">
+
+update video
+set vTitle = #{vTitle}
+where videoNo = #{videoNo}
+
+update video
+set vFileName = #{vFileName}
+where videoNo = #{videoNo}
+ 
+</update>
+
+
+<delete id="delete" parameterType="int">
+delete FROM video
+where videoNo = #{videoNo}
+</delete>
+
+
+
+<select id="list" parameterType="Map" resultType="videoDTO">
+select videoNo ,id , passwd ,vTitle ,vFileName ,vContent , to_char(vRegiDay,'yyyy-mm-dd') vRegiDay,  vType ,v 
+FROM(
+   select videoNo ,id , passwd ,vTitle ,vFileName ,vContent ,vRegiDay , vType,videoNo as v
+	 FROM(
+      select videoNo ,id , passwd ,vTitle ,vFileName ,vContent ,vRegiDay , vType 
+      from video
+		where videoNo = #{videoNo}
+		order by rnum DESC
+   )
+<![CDATA[
+))WHERE v >= #{sno} and v <= #{eno}
+]]>
+
+</select>
+
+
+
+<select id="total" resultType="int" parameterType="int">
+select count(*) from video
+where videoNo = #{videoNo}
+</select>
+
+</mapper>
